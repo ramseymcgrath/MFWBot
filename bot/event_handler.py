@@ -6,9 +6,10 @@ logger = logging.getLogger(__name__)
 
 
 class RtmEventHandler(object):
-    def __init__(self, slack_clients, msg_writer):
+    def __init__(self, slack_clients, msg_writer, users_watched):
         self.clients = slack_clients
         self.msg_writer = msg_writer
+        self.users_watched = users_watched
 
     def handle(self, event):
 
