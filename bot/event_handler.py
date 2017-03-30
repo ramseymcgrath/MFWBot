@@ -41,6 +41,7 @@ class RtmEventHandler(object):
             channel_id = event['channel']
             strings = ['mfw','MFW']
             if any (x in msg_txt for x in strings):
+                self.msg_writer.send_message(channel_id,"Better post a face...")
                 msg_count = 0
                 obj = (user,msg_count,channel_id)
                 self.users_watched.append(obj)
