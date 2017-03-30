@@ -52,7 +52,7 @@ class RtmEventHandler(object):
                             self.msg_writer.send_message(channel_id,"NO FACE FOR " + str(user))
                             self.users_watched.remove(obj)
                         else:
-                            if(event['attachments'] != None):
+                            if(event.has_key('attachments')):
                                 obj = (user,msg_count,channel_id)
                                 self.users_watched.remove(obj)
                             else: 
