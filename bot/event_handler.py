@@ -48,17 +48,17 @@ class RtmEventHandler(object):
                 for watched in self.users_watched:
                     if(user == watched[0] and channel_id == watched[2]):
                         if (watched[1]>3):
-                            obj = (user,msg_count,channel_id)
+                            obj = (user,watched[1],channel_id)
                             self.msg_writer.send_message(channel_id,"NO FACE FOR " + str(user))
                             self.users_watched.remove(obj)
                         else:
                             if(event.has_key('attachments')):
-                                obj = (user,msg_count,channel_id)
+                                obj = (user,watched[1],channel_id)
                                 self.users_watched.remove(obj)
                             else: 
-                                obj = (user,msg_count,channel_id)
+                                obj = (user,watched[1],channel_id)
                                 self.users_watched.remove(obj)
-                                new_obj = (watched[0],watched[1]+1,watched[2])
+                                new_obj = (user,watched[1],channel_id)
                                 self.users_watched.append(new_obj)
 
     def _is_direct_message(self, channel):
