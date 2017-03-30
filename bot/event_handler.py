@@ -35,23 +35,30 @@ class RtmEventHandler(object):
     def _handle_message(self, event):
         # Filter out messages from the bot itself, and from non-users (eg. webhooks)
         if ('user' in event) and (not self.clients.is_message_from_me(event['user'])):
-
             msg_txt = event['text']
-
-            if self.clients.is_bot_mention(msg_txt) or self._is_direct_message(event['channel']):
-                # e.g. user typed: "@pybot tell me a joke!"
-                if 'help' in msg_txt:
-                    self.msg_writer.write_help_message(event['channel'])
-                elif re.search('hi|hey|hello|howdy', msg_txt):
-                    self.msg_writer.write_greeting(event['channel'], event['user'])
-                elif 'joke' in msg_txt:
-                    self.msg_writer.write_joke(event['channel'])
-                elif 'attachment' in msg_txt:
-                    self.msg_writer.demo_attachment(event['channel'])
-                elif 'echo' in msg_txt:
-                    self.msg_writer.send_message(event['channel'], msg_txt)
-                else:
-                    self.msg_writer.write_prompt(event['channel'])
+            user = event['user']
+            channel_id = event['channel']
+            strings = ['mfw','MFW']
+            if any (x in msg_txt for x in strings):
+                msg_count = 0
+                obj = (user,msg_count,channel_id)
+                users_watched.append(obj)
+            else:
+                for watched in self.users_watched:
+                    if(user == watched[0] and channel_id == watched[2]):
+                        if (watched[1]>3):
+                            obj = (user,msg_count,channel_id)
+                            self.msg_writer.send_message("NO FACE FOR " str(obj[0]))
+                            self.users_watched.remove(obj)
+                        else:
+                            if(event['attachments'] != None):
+                                obj = (user,msg_count,channel_id)
+                                self.users_watched.remove(obj)
+                            else: 
+                                obj = (user,msg_count,channel_id)
+                                self.users_watched.remove(obj)
+                                new_obj = (watched[0],watched[1]+1,watched[2])
+                                self.users_watched.append(new_obj)
 
     def _is_direct_message(self, channel):
         """Check if channel is a direct message channel

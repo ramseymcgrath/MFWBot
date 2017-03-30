@@ -22,6 +22,7 @@ class SlackBot(object):
         """
         self.last_ping = 0
         self.keep_running = True
+        self.users_watched = []
         if token is not None:
             self.clients = SlackClients(token)
 
