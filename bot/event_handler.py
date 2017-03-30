@@ -43,7 +43,7 @@ class RtmEventHandler(object):
             if any (x in msg_txt for x in strings):
                 msg_count = 0
                 obj = (user,msg_count,channel_id)
-                users_watched.append(obj)
+                self.users_watched.append(obj)
             else:
                 for watched in self.users_watched:
                     if(user == watched[0] and channel_id == watched[2]):
