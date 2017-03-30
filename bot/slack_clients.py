@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class SlackClients(object):
     def __init__(self, token):
-        self.token = token
+        self.token = 'xoxb-161250853409-ax6Qs0WYRaKuHjZcLZnZQwhH'
 
         # Slacker is a Slack Web API Client
         self.web = Slacker(token)
