@@ -24,10 +24,6 @@ Things are looking good if the console prints something like:
 
 If you want change the logging level, prepend `export LOG_LEVEL=<your level>; ` to the `python ./bot/app.py` command.
 
-### Run locally in Docker
-	docker build -t starter-python-bot .
-	docker run --rm -it -e SLACK_TOKEN=<YOUR SLACK API TOKEN> starter-python-bot
-
 ### Run in BeepBoop
 If you have linked your local repo with the Beep Boop service (check [here](https://beepboophq.com/0_o/my-projects)), changes pushed to the remote master branch will automatically deploy.
 
