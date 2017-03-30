@@ -40,13 +40,7 @@ class RtmEventHandler(object):
             user = event['user']
             channel_id = event['channel']
             strings = ['mfw','MFW']
-            if any (x in msg_txt for x in strings):
-                self.msg_writer.send_message(channel_id,"Better post a face...")
-                msg_count = 0
-                obj = (user,msg_count,channel_id)
-                self.users_watched.append(obj)
-            else:
-                for watched in self.users_watched:
+            for watched in self.users_watched:
                     if(user == watched[0] and channel_id == watched[2]):
                         if (watched[1]>3):
                             obj = (user,watched[1],channel_id)
@@ -61,6 +55,12 @@ class RtmEventHandler(object):
                                 self.users_watched.remove(obj)
                                 new_obj = (user,watched[1],channel_id)
                                 self.users_watched.append(new_obj)
+                    else:
+                        if any (x in msg_txt for x in strings):
+                            self.msg_writer.send_message(channel_id,"Better post a face...")
+                            msg_count = 0
+                            obj = (user,msg_count,channel_id)
+                            self.users_watched.append(obj)
 
     def _is_direct_message(self, channel):
         """Check if channel is a direct message channel
