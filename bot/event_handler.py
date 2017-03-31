@@ -37,9 +37,10 @@ class RtmEventHandler(object):
         # Filter out messages from the bot itself, and from non-users (eg. webhooks)
         if ('user' in event) and (not self.clients.is_message_from_me(event['user'])):
             msg_txt = event['text']
+            msg_txt = msg_txt.lower()
             user = event['user']
             channel_id = event['channel']
-            strings = ['mfw','MFW']
+            strings = ['mfw']
             if any (x in msg_txt for x in strings):
                 self.msg_writer.send_message(channel_id,"Better post a face soon...")
                 msg_count = 0
